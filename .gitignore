@@ -1,0 +1,15 @@
+# OSX Junk
+.DS_Store
+
+.idea/*
+.idea/vcs.xml
+
+# test cache
+.cache/*
+tests/__pycache__/*
+*.pytest_cache/
+
+models/*
+image_folder/*
+data/raw/*
+data/preprocessed/*
