@@ -1,48 +1,32 @@
+
+Inspired by:
+https://github.com/iamaaditya/VQA_Keras
+https://github.com/iamaaditya/VQA_Demo
+
 # Folders Structure
 
 ```
-├── LICENSE
-├── Makefile           <- Makefile with commands like `make data` or `make train`
-├── README.md          <- The top-level README for developers using this project.
+├── README.md
+├── .gitignore              <- Ignore files and folders
+├── app.py                  <- Flask app (interface for VisualQA)
+├── settings.py             <- Contains global variables
 ├── data
-│   ├── external       <- Data from third party sources.
-│   ├── interim        <- Intermediate data that has been transformed.
-│   ├── processed      <- The final, canonical data sets for modeling.
-│   └── raw            <- The original, immutable data dump.
+│   ├── preprocessed        <- Pre-processed images (extracted feature maps from vgg16)
+│   └── raw                 <- The original images, immutable data dump.
 │
-├── docs               <- A default Sphinx project; see sphinx-doc.org for details
+├── model_training          <- Containing functions to train models (image model and VQA)
 │
-├── models             <- Trained and serialized models, model predictions, or model summaries
+├── models                  <- Folder containing models h5 files used for prediction 
 │
-├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-│                         the creator's initials, and a short `-` delimited description, e.g.
-│                         `1.0-jqp-initial-data-exploration`.
+├── notebooks               <- Jupyter notebooks
 │
-├── references         <- Data dictionaries, manuals, and all other explanatory materials.
+├── predict                 <- Folder containing functions to predict VQA result
+│   ├── get_features.py     <- Functions to extract faetures map and embeddings
+│   ├── predict.py          <- Predict from feature maps and embeddings
+│   └── preprocess_image    <- Function to pre-process images
 │
-├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   └── figures        <- Generated graphics and figures to be used in reporting
+├── templates               <- HTML files used by Flask app
+│   └── index.html          <- HTML file containing Jinja variables       
 │
-├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-│                         generated with `pip freeze > requirements.txt`
-│
-├── setup.py           <- Make this project pip installable with `pip install -e`
-├── src                <- Source code for use in this project.
-│   ├── __init__.py    <- Makes src a Python module
-│   │
-│   ├── data           <- Scripts to download or generate data
-│   │   └── make_dataset.py
-│   │
-│   ├── features       <- Scripts to turn raw data into features for modeling
-│   │   └── build_features.py
-│   │
-│   ├── models         <- Scripts to train models and then use trained models to make
-│   │   │                 predictions
-│   │   ├── predict_model.py
-│   │   └── train_model.py
-│   │
-│   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-│       └── visualize.py
-│
-└── tox.ini            <- tox file with settings for running tox; see tox.testrun.org
+└─── uploads                 <- Folder containing images uploaded from Flask app
 ```
