@@ -13,7 +13,7 @@ def get_image_model():
 
     base_model = VGG16(weights='imagenet',
                        include_top=False,
-                       input_shape=(3, 224, 224))
+                       input_shape=(224, 224, 3))
 
     x = base_model.output
     x = Flatten()(x)
@@ -28,12 +28,12 @@ def get_image_model():
         layer.trainable = False
 
     image_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-    image_model.summary()
+    #image_model.summary()
 
     return image_model
 
 
-def get_image_features(image, image_model, img_shape=(204, 204)):
+def get_image_features(image, image_model, img_shape=(224, 224)):
     ''' Runs the given image_file to VGG 16 model and returns the
     weights (filters) as a 1, 4096 dimension vector '''
     image_features = np.zeros((1, 4096))
@@ -43,7 +43,8 @@ def get_image_features(image, image_model, img_shape=(204, 204)):
     # is required to go through the same transformation
 
     im = resize_image(image, img_shape)
-    # print(im.shape)
+    im = np.transpose(im, (1, 2, 0))
+    #print(im.shape)
 
     # this axis dimension is required because VGG was trained on a dimension
     # of 1, 3, 224, 224 (first axis is for the batch size
@@ -61,7 +62,7 @@ def get_question_features(question):
     calculated using Glove Vector '''
     word_embeddings = spacy.load('en_vectors_web_lg') #en-core-web-sm
     tokens = word_embeddings(question)
-    question_tensor = np.zeros((1, 30, 300))
+    question_tensor = np.zeros((1, 26, 300))
     for j in range(len(tokens)):
         question_tensor[0,j,:] = tokens[j].vector
     return question_tensor

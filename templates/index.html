@@ -24,8 +24,12 @@
             <button type="submit" name="submit">Submit</button>
          </form>
         <br>
-        <h4>{{question}} </h4>
-        <h3>{{answer}}</h3>
+        <h3>{{question}} </h3>
+        <h4>
+            {% for result in answer %}
+                {{ loop.index }}.   {{ result[0] }} ({{ result[1] }}) <br>
+            {% endfor %}
+        </h4>
     </div>
 </body>
 </html>

@@ -3,6 +3,7 @@ import pandas as pd
 
 MODEL_FOLDER = 'models/'
 MODEL_FILE = "DeeperLSTM_full.h5"
+IMG_MODEL_FILE = ""
 
 args = {
 

@@ -38,7 +38,7 @@ app.config['IMAGE_URL'] = '../uploads/template.jpg'
 
 @app.route("/")
 def template_test():
-    return render_template('index.html', imagesource='', question='question', anwer='answer')
+    return render_template('index.html', imagesource='', question='', anwer='')
 
 
 @app.route('/upload_image', methods=['GET', 'POST'])
@@ -56,17 +56,16 @@ def upload_file():
             #print(file_path)
             app.config['IMAGE_URL'] = file_path
 
-            return render_template('index.html', imagesource=app.config['IMAGE_URL'], question='question', anwer='test')
+            return render_template('index.html', imagesource=app.config['IMAGE_URL'], question='', anwer='')
 
 
 @app.route('/ask_question', methods=['POST'])
 def my_form_post():
     text = request.form['textbox']
-    processed_text = text.capitalize()
+    question = text.capitalize()
+    #print(question)
 
-    #print(processed_text)
-
-    # preds = predict(img, question)
+    preds = predict(app.config['IMAGE_URL'], question)
 
     """
     API_ENDPOINT = "http://localhost:9000/v1/models/ImageClassifier:predict"
@@ -87,8 +86,9 @@ def my_form_post():
     print(pred)
     """
 
-    label = 'Sunflowers'
-    return render_template('index.html', imagesource=app.config['IMAGE_URL'], question=processed_text, answer=label)
+    #print(preds)
+    label = preds#[0][0]
+    return render_template('index.html', imagesource=app.config['IMAGE_URL'], question=question, answer=label)
 
 
 @app.route('/uploads/<filename>')
