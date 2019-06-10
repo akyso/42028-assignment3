@@ -16,3 +16,4 @@ models/*
 image_folder/*
 data/raw/*
 data/preprocessed/*
+data/vqa_v1/*

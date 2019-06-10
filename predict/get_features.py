@@ -13,7 +13,7 @@ def get_image_model():
 
     base_model = VGG16(weights='imagenet',
                        include_top=False,
-                       input_shape=(224, 224, 3))
+                       input_shape=(150, 150, 3))
 
     x = base_model.output
     x = Flatten()(x)

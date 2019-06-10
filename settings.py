@@ -1,9 +1,14 @@
 import json
 import pandas as pd
+import os
+#import sys
 
-MODEL_FOLDER = 'models/'
-MODEL_FILE = "DeeperLSTM_full.h5"
-IMG_MODEL_FILE = ""
+#sys.path.insert(0,'/home/anthony/Projects/42028-assignment3/')
+
+REPO_FOLDER = '/home/anthony/Projects/42028-assignment3/'
+MODEL_FOLDER = f'{REPO_FOLDER}models/'
+MODEL_FILE = "DeeperLSTM_full.h5" #"vqa_vgg19/vqa_vgg19.h5"
+IMG_MODEL_FILE = "vqa_vgg19/" #"vgg19/vgg19_feature_extractor.h5"
 
 args = {
 
@@ -44,10 +49,10 @@ args = {
         'save_folder': '',
 
         # data
-        'ans_file': 'data/preprocessed/val_all_answers_dict.json',
-        'input_json': 'data/preprocessed/data_prepro.json',
-        'input_img_h5': 'data/preprocessed/data_img.h5',
-        'input_ques_h5': 'data/preprocessed/data_prepro.h5',
+        'ans_file': f'{REPO_FOLDER}data/preprocessed/val_all_answers_dict.json',
+        'input_json': f'{REPO_FOLDER}data/preprocessed/data_prepro.json',
+        'input_img_h5': f'{REPO_FOLDER}data/preprocessed/data_img.h5',
+        'input_ques_h5': f'{REPO_FOLDER}data/preprocessed/data_prepro.h5',
 
         # pre-model_training
         'weights': '',
@@ -57,6 +62,8 @@ args = {
 
 metadata = json.load(open(args['input_json'], 'r'))
 
-ANSWERS_IDX = pd.DataFrame([metadata.get('ix_to_ans')]).T.reset_index()
-ANSWERS_IDX['index'] = ANSWERS_IDX['index'].astype('int') - 1
-ANSWERS_IDX = ANSWERS_IDX.sort_values('index').set_index('index').to_dict()[0]
+#ANSWERS_IDX = pd.DataFrame([metadata.get('ix_to_ans')]).T.reset_index()
+#ANSWERS_IDX['index'] = ANSWERS_IDX['index'].astype('int') - 1
+#ANSWERS_IDX = ANSWERS_IDX.sort_values('index').set_index('index').to_dict()[0]
+
+ANSWERS_IDX = pd.read_hdf('data/vqa_v1/answer_mapping.h5', 'answers')
