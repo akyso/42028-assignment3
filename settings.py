@@ -3,12 +3,13 @@ import pandas as pd
 import os
 #import sys
 
-#sys.path.insert(0,'/home/anthony/Projects/42028-assignment3/')
+#sys.path.insert(0,'/Users/anthonyso/Documents/42028-assignment3/')
 
-REPO_FOLDER = '/home/anthony/Projects/42028-assignment3/'
+REPO_FOLDER = '/Users/anthonyso/Documents/42028-assignment3/'
 MODEL_FOLDER = f'{REPO_FOLDER}models/'
-MODEL_FILE = "DeeperLSTM_full.h5" #"vqa_vgg19/vqa_vgg19.h5"
-IMG_MODEL_FILE = "vqa_vgg19/" #"vgg19/vgg19_feature_extractor.h5"
+MODEL_FILE = "vqa_vgg19/vqa_vgg19.h5" #"vqa_vgg19/vqa_vgg19.h5"
+IMG_MODEL_FILE = "vgg19/vgg19_feature_extractor.h5" #"vgg19/vgg19_feature_extractor.h5"
+TOKENIZER_FILE = "tokenizer/tokenizer.pkl"
 
 args = {
 
@@ -60,7 +61,7 @@ args = {
 
     }
 
-metadata = json.load(open(args['input_json'], 'r'))
+#metadata = json.load(open(args['input_json'], 'r'))
 
 #ANSWERS_IDX = pd.DataFrame([metadata.get('ix_to_ans')]).T.reset_index()
 #ANSWERS_IDX['index'] = ANSWERS_IDX['index'].astype('int') - 1

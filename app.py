@@ -27,6 +27,7 @@ ALLOWED_EXTENSIONS = set(['jpg', 'jpeg'])
 def get_as_base64(url):
     return base64.b64encode(requests.get(url).content)
 
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
@@ -35,6 +36,7 @@ def allowed_file(filename):
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['IMAGE_URL'] = '../uploads/template.jpg'
+
 
 @app.route("/")
 def template_test():
