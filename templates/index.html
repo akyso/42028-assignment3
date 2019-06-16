@@ -5,31 +5,34 @@
     <title>Visual QA</title>
 </head>
 <body>
-    <div class="col-md-7">
-        <h2>Upload an image</h2>
-        <form action="http://localhost:3000/upload_image" method=post enctype=multipart/form-data>
-          <input type=file name=file>
-          <input type=submit value=Upload>
-        </form>
-        <table class="table" id="img-table">
-            <tr>
-                <img width="400px" height="250px" src="{{imagesource}}" />
-            </tr>
-        </table>
-    </div>
-    <div class="col-md-7">
-        <h2>Ask a question</h2>
-        <form action="http://localhost:3000/ask_question" method="POST">
-            <textarea name="textbox"></textarea>
-            <button type="submit" name="submit">Submit</button>
-         </form>
-        <br>
-        <h3>{{question}} </h3>
-        <h4>
-            {% for result in answer %}
-                {{ loop.index }}.   {{ result[0] }} ({{ result[1] }}) <br>
-            {% endfor %}
-        </h4>
-    </div>
+    <center>
+        <h1>Visual Question Answering</h1>
+        <div class="col-md-7">
+            <h2>Upload an image</h2>
+            <form action="http://localhost:3000/upload_image" method=post enctype=multipart/form-data>
+              <input type=file name=file>
+              <input type=submit value=Upload>
+            </form>
+            <table class="table" id="img-table">
+                <tr>
+                    <img width="400px" height="250px" src="{{imagesource}}" />
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-7">
+            <h2>Ask a question</h2>
+            <form action="http://localhost:3000/ask_question" method="POST">
+                <textarea name="textbox"></textarea>
+                <button type="submit" name="submit">Submit</button>
+             </form>
+            <br>
+            <h3>{{question}} </h3>
+            <h4>
+                {% for result in answer %}
+                    {{ loop.index }}.   {{ result[0] }} ({{ result[1] }}%) <br>
+                {% endfor %}
+            </h4>
+        </div>
+    </center>
 </body>
 </html>

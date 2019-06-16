@@ -56,6 +56,7 @@ def get_image_features(image, image_model, img_shape=(224, 224)):
 
     return image_features
 
+
 def get_glove_question_features(question):
     ''' For a given question, a unicode string, returns the time series vector
     with each word (token) transformed into a 300 dimension representation

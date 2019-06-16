@@ -8,10 +8,8 @@ from predict.preprocess_image import get_image_from_url
 from settings import ANSWERS_IDX, MODEL_FOLDER, MODEL_FILE, IMG_MODEL_FILE, TOKENIZER_FILE
 
 
-#IMAGE_MODEL = keras.models.load_model(f"{MODEL_FOLDER}{IMG_MODEL_FILE}")
-#VQA_MODEL = keras.models.load_model(f"{MODEL_FOLDER}{MODEL_FILE}")
+def predict(img_url, question, image_model=None, vqa_model=None, tokenizer=None):
 
-def predict(img_url, question, image_model=None, vqa_model=None):
     # Open image
     img = get_image_from_url(img_url)
 
@@ -22,11 +20,11 @@ def predict(img_url, question, image_model=None, vqa_model=None):
     # Generate feature maps from image model
     image_features = get_image_features(img, image_model, img_shape=(150, 150))
 
-    tokenizer = load_tokenizer()
+    if not tokenizer:
+        tokenizer = load_tokenizer()
 
     # Generate embeddings or input question
     question_features = get_question_features(question, tokenizer)
-    question_glove = get_glove_question_features(question)
 
     # Load VQA Model
     if not vqa_model:
