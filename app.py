@@ -10,8 +10,6 @@ import tensorflow.keras as keras
 import keras
 from keras.preprocessing.sequence import pad_sequences
 
-
-#from predict.predict import predict
 from settings import ANSWERS_IDX, MODEL_FOLDER, MODEL_FILE, IMG_MODEL_FILE, TOKENIZER_FILE
 from Archives.predict.preprocess_image import resize_image, get_image_from_url
 
@@ -56,7 +54,7 @@ def predict(img_url, question):
     # Filter top 5 answers
     top_preds = pred.argsort()[-5:][::-1]
 
-    return [(ANSWERS_IDX.at[idx, 'answer'], round(pred[idx] * 100.0, 2)) for idx in top_preds]
+    return [(ANSWERS_IDX.at[idx, 'answer'].capitalize(), round(pred[idx] * 100.0, 2)) for idx in top_preds]
 
 
 def prepare_image(image, img_shape=(224, 224)):
@@ -81,7 +79,7 @@ app.config['IMAGE_URL'] = '../uploads/template.jpg'
 
 @app.route("/")
 def template_test():
-    return render_template('index.html', imagesource='', question='', anwer='')
+    return render_template('index.html', imagesource='/static/home.jpg', question='', anwer='')
 
 
 @app.route('/predict_vqa', methods=['POST'])
