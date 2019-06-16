@@ -1,10 +1,9 @@
 import os
-import time
 import base64
 import numpy as np
 import pickle
 import requests
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory, jsonify
+from flask import Flask, render_template, request, send_from_directory
 from werkzeug import SharedDataMiddleware, secure_filename
 import tensorflow as tf
 import tensorflow.keras as keras
@@ -14,7 +13,7 @@ from keras.preprocessing.sequence import pad_sequences
 
 #from predict.predict import predict
 from settings import ANSWERS_IDX, MODEL_FOLDER, MODEL_FILE, IMG_MODEL_FILE, TOKENIZER_FILE
-from predict.preprocess_image import resize_image, get_image_from_url
+from Archives.predict.preprocess_image import resize_image, get_image_from_url
 
 
 UPLOAD_FOLDER = 'uploads'
@@ -85,11 +84,35 @@ def template_test():
     return render_template('index.html', imagesource='', question='', anwer='')
 
 
+@app.route('/predict_vqa', methods=['POST'])
+def predict_vqa():
+    #if request.method == 'POST':
+    file = request.files['photo']
+
+        #if file and allowed_file(file.filename):
+    filename = secure_filename(file.filename)
+
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    file.save(file_path)
+
+    # print(file_path)
+    app.config['IMAGE_URL'] = file_path
+
+    text = request.form['textbox']
+    question = text.capitalize()
+    # print(question)
+
+    preds = predict(app.config['IMAGE_URL'], question)
+    #preds = predict(file_path, question)
+    # print(preds)
+
+    return render_template('index.html', imagesource=app.config['IMAGE_URL'], question=question, answer=preds, answer_title="Here are my answers")
+
+
 @app.route('/upload_image', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
-        start_time = time.time()
-        file = request.files['file']
+        file = request.files['photo']
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
@@ -104,16 +127,15 @@ def upload_file():
 
 
 @app.route('/ask_question', methods=['POST'])
-def my_form_post():
+def ask_question():
     text = request.form['textbox']
     question = text.capitalize()
     #print(question)
 
-    preds = predict(app.config['IMAGE_URL'], question) #, IMAGE_MODEL, VQA_MODEL, TOKENIZER
-
+    preds = predict(app.config['IMAGE_URL'], question)
     #print(preds)
-    label = preds#[0][0]
-    return render_template('index.html', imagesource=app.config['IMAGE_URL'], question=question, answer=label)
+
+    return render_template('index.html', imagesource=app.config['IMAGE_URL'], question=question, answer=preds)
 
 
 @app.route('/uploads/<filename>')

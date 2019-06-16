@@ -1,10 +1,8 @@
-import tensorflow as tf
 import tensorflow.keras as keras
-import numpy as np
 import pickle
 
-from predict.get_features import get_image_features, get_question_features, get_image_model, get_glove_question_features
-from predict.preprocess_image import get_image_from_url
+from Archives.predict.get_features import get_image_features, get_question_features, get_image_model
+from Archives.predict.preprocess_image import get_image_from_url
 from settings import ANSWERS_IDX, MODEL_FOLDER, MODEL_FILE, IMG_MODEL_FILE, TOKENIZER_FILE
 
 

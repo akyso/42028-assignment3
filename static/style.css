@@ -1,0 +1,84 @@
+@import url('http://fonts.googleapis.com/css?family=Open+Sans:400,300');
+
+* { margin: 0; padding: 0; }
+
+body {
+    background: #f2f2f2 !important;
+    text-align: center;
+    color: #ffffff\;
+}
+
+h1 span {
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 10px;
+}
+
+h2 span {
+    color: #ff5500;
+    font-weight: 400;
+    font-size: 10px;
+}
+
+h4 span {
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 10px;
+}
+
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/* Control the left side */
+.left {
+  left: 0;
+}
+
+/* Control the right side */
+.right {
+  right: 0;
+}
+
+#a input {
+    background-color: #b3e6ff;
+    border: none;
+    color: #000000;
+    padding: 13px 14px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 60px;
+}
+
+#b input {
+    background-color: #84e184;
+    border: none;
+    color: #000000;
+    padding: 13px 70px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 60px;
+}
+
+#output img.center {
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    left: -50%;
+}
+
+p span { color: #4d4d4d; font-weight: 400; }

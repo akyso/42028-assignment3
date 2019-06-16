@@ -2,36 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400i" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
     <title>Visual QA</title>
 </head>
 <body>
     <center>
-        <h1>Visual Question Answering</h1>
-        <div class="col-md-7">
-            <h2>Upload an image</h2>
-            <form action="http://localhost:3000/upload_image" method=post enctype=multipart/form-data>
-              <input type=file name=file>
-              <input type=submit value=Upload>
+        <h1><span style="color:black">Visual Question Answering</span></h1>
+        <div class="split left">
+            <form action="http://localhost:3000/predict_vqa" method=post enctype=multipart/form-data>
+                <div id="a", style="margin-top:25px;">
+                    <p><h2><span> Upload an image </span></h2></p>
+                    <input type=file name=photo accept="image/*" onchange="loadFile(event)">
+                    <center>
+                        <img id="output" src="{{imagesource}}" align = middle STYLE="TOP:160px; LEFT:87px; WIDTH:400px; HEIGHT:250px"/>
+                    </center>
+                    <script>
+                        var loadFile = function(event) {
+                        var output = document.getElementById('output');
+                        output.src = URL.createObjectURL(event.target.files[0]);
+                        };
+                 </script>
+                </div>
+                <div id="b", style="margin-top:25px;">
+                    <p><h2><span>Ask a question</span></h2></p>
+                    <p><textarea id=d name="textbox" style="font-size: 12pt;color:black" rows="1" cols="30">{{ question }}</textarea></p>
+                    <p><input type="submit"></p>
+                </div>
             </form>
-            <table class="table" id="img-table">
-                <tr>
-                    <img width="400px" height="250px" src="{{imagesource}}" />
-                </tr>
-            </table>
         </div>
-        <div class="col-md-7">
-            <h2>Ask a question</h2>
-            <form action="http://localhost:3000/ask_question" method="POST">
-                <textarea name="textbox"></textarea>
-                <button type="submit" name="submit">Submit</button>
-             </form>
-            <br>
-            <h3>{{question}} </h3>
-            <h4>
-                {% for result in answer %}
-                    {{ loop.index }}.   {{ result[0] }} ({{ result[1] }}%) <br>
-                {% endfor %}
-            </h4>
+        <div class="split right">
+            <div id="c" style="margin-top:25px; ">
+                <p><h2><span>{{answer_title}} </span></h2></p>
+                <p><h4><span style = "color:black">
+                    {% for result in answer %}
+                        {{ loop.index }}.   {{ result[0] }} ({{ result[1] }}%) <br>
+                    {% endfor %}
+                 </span></h4></p>
+            </div>
         </div>
     </center>
 </body>

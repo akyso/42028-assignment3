@@ -1,12 +1,9 @@
 import numpy as np
 import spacy
-import tensorflow as tf
-import tensorflow.keras as keras
 from keras.layers import Flatten, Dense
 from keras.models import Model
-from keras.preprocessing.text import Tokenizer
 
-from predict.preprocess_image import resize_image
+from Archives.predict.preprocess_image import resize_image
 
 
 def get_image_model():
